@@ -1,24 +1,57 @@
-  {
-    "userId": 1,
-    "id": 1,
-    "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-    "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-  },
-  {
-    "userId": 1,
-    "id": 2,
-    "title": "qui est esse",
-    "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
-  },
-  {
-    "userId": 1,
-    "id": 3,
-    "title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
-    "body": "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
-  },
-  {
-    "userId": 1,
-    "id": 4,
-    "title": "eum et est occaecati",
-    "body": "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit"
-  }
+import requests
+
+url_get = 'https://jsonplaceholder.typicode.com/posts'
+
+# Get
+response_get = requests.get(url_get)
+
+if response_get.status_code == 200:
+
+    posts = response_get.json()
+    
+    
+    print("id:")
+    for post in posts:
+        if post.get('userId', 0) % 2 == 0:
+            print(post)
+else:
+    print(f"Error: {response_get.status_code}")
+
+url_post = 'https://jsonplaceholder.typicode.com/posts'
+
+data_post = {
+    'title': 'testPost',
+    'body': 'BodyTestPost',
+    'userId': 1
+}
+
+# Post
+response_post = requests.post(url_post, json=data_post)
+
+if response_post.status_code == 201:
+    print("\nCreated Post:")
+    print(response_post.json())
+else:
+    print(f"\nError: {response_post.status_code}")
+
+url_put = 'https://jsonplaceholder.typicode.com/posts'
+
+data_put = {
+    'title': 'NewPost',
+    'body': 'BodyNewPost',
+    'userId': 1,
+}
+# Put
+response_put = requests.put(url_put, json=data_put)
+
+if response_put.status_code == 200:
+    print("\nUpdated Post :")
+    print(data_put)
+else:
+    print(f"\nError: {response_put.status_code}")
+    print("Updated Post:")
+    print({
+        'title': 'Post',
+        'body': 'BodyPost',
+        'userId': 1,
+    })
